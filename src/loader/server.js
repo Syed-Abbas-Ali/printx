@@ -10,7 +10,7 @@ import { Server as SocketIo } from 'socket.io';
 // swagger
 
 
-export default (app) => {
+export default (app,server) => {
     logger.info('initializationExpressServer()');
 
     const corsOptions = {
@@ -45,7 +45,7 @@ export default (app) => {
     //   };
 
 
-    const server = http.createServer(app);
+    // const server = http.createServer(app);
 const io = new SocketIo(server,{
     cors: {
       origin: "http://localhost:5173",
@@ -99,7 +99,5 @@ io.on('connection', (socket) => {
 // server.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
-
-
 };
 

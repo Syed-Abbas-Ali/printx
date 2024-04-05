@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import dotenv from 'dotenv';
+import http from 'http';
 
 dotenv.config();
 
@@ -17,10 +18,12 @@ async function startApplication() {
     logger.info('Application started successfully');
 
     const app = express();
+    const server = http.createServer(app);
     // app.use("/api-docs", swaggerServe, swaggerSetup); 
     // ... your Express setup logic
-    initializeApp(app)
-    app.listen(process.env.PORT || 5000, () => {
+
+    initializeApp(app,server)
+    server.listen(process.env.PORT || 5000, () => {
       logger.info('Server is running');
     });
   } catch (error) {
