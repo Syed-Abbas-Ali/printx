@@ -1,0 +1,40 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 15
+    },
+    "auditLog": "D:\\pp\\printx\\backend\\printx\\.4488e475581802b5c59a2adaf25052ee30ff4b7f-audit.json",
+    "files": [
+        {
+            "date": 1711203179029,
+            "name": "D:\\pp\\printx\\backend\\printx\\printx-2024-03-23.log",
+            "hash": "03bdb0e861073fd657f01b773436398268ee85bcbc195d64a91dfb44e9571413"
+        },
+        {
+            "date": 1711737319275,
+            "name": "D:\\pp\\printx\\backend\\printx\\printx-2024-03-29.log",
+            "hash": "2e2aa7086f23ee4398adc0c16b3606914623b0a9f288403c667ca75e1baa25d2"
+        },
+        {
+            "date": 1712027501302,
+            "name": "D:\\pp\\printx\\backend\\printx\\printx-2024-04-01.log",
+            "hash": "45f620911de151a5582bece51f081c1281bb277f5c3b926789949ed77a60d7af"
+        },
+        {
+            "date": 1712044351070,
+            "name": "D:\\pp\\printx\\backend\\printx\\printx-2024-04-02.log",
+            "hash": "6efb3609d5e3a150a26cea2cdf78ece041feb66411a6031779db613666a8c073"
+        },
+        {
+            "date": 1712200511669,
+            "name": "D:\\pp\\printx\\backend\\printx\\printx-2024-04-03.log",
+            "hash": "ae00ad971e0e8c685eb8234467eb3037a8132b65d793dd6295c96fbeeee9d9ba"
+        },
+        {
+            "date": 1712214858244,
+            "name": "D:\\pp\\printx\\backend\\printx\\printx-2024-04-04.log",
+            "hash": "c2ea79fc8cee55be6178f70392354c5af107aabbac58c1a232872c8419e480b0"
+        }
+    ],
+    "hashType": "sha256"
+}

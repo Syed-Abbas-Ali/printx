@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 15
+    },
+    "auditLog": "D:\\pp\\printx\\backend\\hello\\.1c766b8dbb8934e3acf50427918713692075baa8-audit.json",
+    "files": [
+        {
+            "date": 1706947164116,
+            "name": "D:\\pp\\printx\\backend\\hello\\printx-2024-02-02.log",
+            "hash": "d155153aeaa8e82e5c8ea43c267e5d64941641c9156691732f4d49e95bc645fd"
+        },
+        {
+            "date": 1706947207238,
+            "name": "D:\\pp\\printx\\backend\\hello\\printx-2024-02-03.log",
+            "hash": "14bc70f8306471898d5eabd20d52e0ca22a3a1fd5d910079b4879ffe214ec98b"
+        }
+    ],
+    "hashType": "sha256"
+}

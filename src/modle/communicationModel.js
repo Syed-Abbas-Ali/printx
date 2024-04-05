@@ -1,0 +1,18 @@
+const mongoose = require('mongoose');
+
+const messageSchema = new mongoose.Schema({
+  sender: { type: String, required: true },
+  text: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const Message = mongoose.model('Message', messageSchema);
+
+// Save message to MongoDB function
+const saveMessageToMongoDB = async (data) => {
+  const message = new Message({
+    sender: data.sender,
+    text: data.text
+  });
+  await message.save();
+};

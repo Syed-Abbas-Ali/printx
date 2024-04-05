@@ -1,0 +1,1329 @@
+openapi: 3.0.3
+info:
+  title: CP 
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@acuity.iot
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://3.109.121.136:3200/api/v1
+tags:
+  - name: Authentication
+    description: this is relate with Authentication of All users (mentor,recruiter,college,admin)
+
+  - name: Recruiter Profile
+    description: this is relate with full details of Recruiter_Profile
+
+  - name: Mentor Profile
+    description: this is relate with full details of Mentor_Profile
+
+  - name: College Profile
+    description: this is relate with full details of College_Profile
+    
+paths:
+# user Authentication
+ /auth/user/login:
+    post:
+      tags:
+        - Authentication
+      summary: for users login
+      operationId: login
+      requestBody:
+        description: login data
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginDTO'
+        required: true
+      responses:
+        200: 
+          description: login successfully
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/loginResponse'
+        400:
+          description: user not found
+          content: {}
+
+ /auth/user/change-password:
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - Authentication
+      summary: for users change password
+      operationId: change password
+      requestBody:
+        description: change password data
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/changePassword'
+        required: true
+      responses:
+        200: 
+          description: password changes successfully
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content: {}
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+ /auth/user/forget-password:
+    post:
+      tags:
+        - Authentication
+      summary: for users forgot-password
+      operationId: forgot-password
+      requestBody:
+        description: forgot-password data
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/forgotPassword'
+        required: true
+      responses:
+        200: 
+          description: forgot-password
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content: {}
+
+ /auth/user/update-password:
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - Authentication
+      summary: for users update-password
+      operationId: update-password
+      requestBody:
+        description: update-password data
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updatePassword'
+        required: true
+      responses:
+        200: 
+          description: forgot-password
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content: {}
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+ /auth/user/otp/resend:
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - Authentication
+      summary: for users otp resend
+      operationId: otp resend
+      requestBody:
+        description: otp resend data
+        content:  
+          application/json:
+            schema: {}
+        required: true
+      responses:
+        200: 
+          description: otp resend
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema: {}
+        400:
+          description: user not found
+          content: {}
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+ /auth/admin/register/recruiter:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Authentication
+      summary: for creating new recruter from Admin side 
+      operationId: create_recruiter
+      requestBody:
+        description: creater_recruiter
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userRegesterDTO'
+        required: true
+      responses:
+        200: 
+          description: recruter  created successfully !
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userRegesterErrorDTO'
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+          
+ /auth/admin/register/mentor:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Authentication
+      summary: for creating new mentor from Admin side 
+      operationId: create_mentor
+      requestBody:
+        description: creater_mentor
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userRegesterDTO'
+        required: true
+      responses:
+        200: 
+          description: mentor  created successfully !
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userRegesterErrorDTO'
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+ /auth/admin/register/college:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Authentication
+      summary: for creating new college from Admin side 
+      operationId: create_college
+      requestBody:
+        description: creater_college
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collegeRegesterDTO'
+        required: true
+      responses:
+        200: 
+          description: college  created successfully !
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userRegesterErrorDTO'
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+
+# user Profile
+ /profile/recruiter:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Recruiter Profile
+      summary: for posting and updating profile detailsof an user
+      operationId: recruiter profile details
+      requestBody:
+        description: recruiter profile
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/recruiterProfile'
+        required: true
+      responses:
+        200: 
+          description: updated or posted successfully'!
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userRegesterErrorDTO'
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Recruiter Profile
+      summary: to fetch recruiter Profile details
+      responses:
+        200:
+          description: "data fetched successfully"
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecruiterDetailsResponse'
+        400:
+          description: bad request
+          content: {}
+        401:
+          description: unAuthroized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+ /profile/mentor:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - Mentor Profile
+      summary: for posting and updating profile details of an user
+      operationId: mentor profile details
+      requestBody:
+        description: Mentor Profile
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userProfileUpdateDTO'
+        required: true
+      responses:
+        200: 
+          description: updated or posted successfully'!
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userRegesterErrorDTO'
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - Mentor Profile
+      summary: to fetch mentor Profile details
+      responses:
+        200:
+          description: "data fetched successfully"
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MentorProfileResponse'
+        400:
+          description: bad request
+          content: {}
+        401:
+          description: unAuthroized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+
+ /profile/college:
+    post:
+      security:
+        - bearerAuth: []
+      tags:
+        - College Profile
+      summary: for posting and updating profile details of an College Profile
+      operationId: College Profile details
+      requestBody:
+        description: College Profile
+        content:  
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollegeProfileDTO'
+        required: true
+      responses:
+        200: 
+          description: updated or posted successfully'!
+          headers:
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+            Access-Control-Allow-Methods:
+              schema:
+                type: string
+            Access-Control-Allow-Headers:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userAuthResponse'
+        400:
+          description: user not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/userRegesterErrorDTO'
+        401: 
+          description: unAuthorised
+          content: 
+            applicaion/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - College Profile
+      summary: to fetch College Profile details
+      responses:
+        200:
+          description: "data fetched successfully"
+          content: 
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollegeProfileResponse'
+        400:
+          description: bad request
+          content: {}
+        401:
+          description: unAuthroized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unAuthorized'
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+
+  schemas:
+
+  # user Authentication
+    loginDTO:
+      type: object
+      properties: 
+        email:
+          type: string
+          example: 'JeromeBell@gmail.com'
+          description: userLoginId is mandatory for login
+        password:
+          type: string
+          example: 'jerome@123'
+          description: minimum 8 alphanumeric password for login
+          
+    changePassword:
+      type: object
+      properties: 
+        oldPassword:
+          type: string
+          example: 'example@fhjshf'
+          description: minimum 8 alphanumeric password 
+        newPassword:
+          type: string
+          example: 'example@fhjshf'
+          description: minimum 8 alphanumeric password 
+          
+    forgotPassword:
+      type: object
+      properties: 
+        email:
+          type: string
+          example: 'example@gmail.com'
+          description: user email id  
+          
+    updatePassword:
+      type: object
+      properties: 
+        password:
+          type: string
+          example: 'example@gmail656'
+          description: user new password  
+          
+    loginResponse:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:  
+          type: string
+          example: 'Successfully login'
+        data:
+          type: object
+          properties:
+            uid:
+              type: string
+              example: 8766430b-7913-42cb-80e3-0917bb6f6087
+            firstName: 
+              type: string
+              example: jerome bell
+            lastName: 
+              type: string
+              example: jerome bell
+            email:  
+              type: string
+              example: jeromeBell@gmail.com
+            role:  
+              type: string
+              example: jeromeBell@gmail.com
+            firstTimeLogin:
+              type: boolean
+              example: true or false
+            accessToken:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQWRtaW4iLCJ1c2VySWQiOjEsInVzZXJOYW1lIjoiSmVyb21lIEJlbGwiLCJpYXQiOjE2NzU2NzgyNjgsImV4cCI6MTY3NTY5MjY2OH0.uulNJk_Edkbc9wnaf2kP5Qj46F6VS9XbZ-me0LUG7II"
+            refreshToken:
+              type: string
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQWRtaW4iLCJ1c2VySWQiOjEsInVzZXJOYW1lIjoiSmVyb21lIEJlbGwiLCJpYXQiOjE2NzU2NzgyNjgsImV4cCI6MTY3NTY5MjY2OH0.uulNJk_Edkbc9wnaf2kP5Qj46F6VS9XbZ-me0LUG7II"
+
+    userRegesterDTO:
+      type: object
+      properties: 
+        firstName:
+          type: string
+          example: 'Jerome'
+          description: user firstname
+        lastName:
+          type: string
+          example: 'Bell'
+          description: user lastname
+        email:
+          type: string
+          example: 'JeromeBell@gmail.com'
+          description: user email which is not regestered before for this 
+        termsAndCondition:
+          type: boolean
+          example: false
+          description: this will show user is agree or not with terms and conditions
+          
+    collegeRegesterDTO:
+      type: object
+      properties: 
+        collegeName:
+          type: string
+          example: 'Jerome'
+          description: user firstname
+        collegeId:
+          type: string
+          example: 'w6479'
+          description: collegeid
+        email:
+          type: string
+          example: 'JeromeBell@gmail.com'
+          description: user email which is not regestered before for this 
+        phone:
+          type: string
+          example: "78945611230"
+          description: user email which is not regestered before for this 
+        termsAndCondition:
+          type: boolean
+          example: false
+          description: this will show user is agree or not with terms and conditions
+          
+    userAuthResponse:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 200
+        message:  
+          type: string
+          example: 'Notification sent successfully'
+          
+    userRegesterErrorDTO:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 400
+        message:  
+          type: string
+          example: 'some error'
+        data:
+         type: boolean
+         example: null
+          
+    unAuthorized:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 500
+        message:
+          type: string
+          example: "Internal server error"
+        data:
+          type: object
+          properties:
+              message:
+                type: string
+                example: "Token required."
+              errorCode:
+                type: string
+                example: "permission_denied"
+              fieldName:
+                type: string
+                example: "jwtToken"
+        showMessage:
+          type: boolean
+          example: true
+
+    recruiterProfile:
+      type: object
+      properties:
+        personalDetails:
+          type: object
+          properties:
+            website:
+              type: string
+              example: "inkprog.com"
+            linkedIn:
+              type: string
+              example: "inkprog.ocm22"
+            dateOfBirth:
+              type: string
+              format: date
+              example: "2027-01-02"
+          description: Personal details of the user profile
+        addressDetails:
+          type: object
+          properties:
+            address:
+              type: string
+              example: "madhapur"
+            state:
+              type: string
+              example: "telangana"
+            city:
+              type: string
+              example: "hyderabad22"
+            pincode:
+              type: string
+              example: "500402"
+            district:
+              type: string
+              example: "hyderabad"
+            country:
+              type: string
+              example: "india"
+          description: Address details of the user profile
+        companyDetails:
+          type: object
+          properties:
+            companyName:
+              type: string
+              example: "srisivani"
+            founderName:
+              type: string
+              example: "saikumar"
+            establishYear:
+              type: integer
+              example: 2015
+            numberOfEmployees:
+              type: integer
+              example: 30
+            numberOfDepartments:
+              type: integer
+              example: 7
+            annualIncome:
+              type: number
+              example: 200000
+          description: Company details of the user profile
+
+    userProfileUpdateDTO:
+      type: object
+      properties:
+        personalDetails:
+          type: object
+          properties:
+            website:
+              type: string
+              example: "careerpedia-studentportal.com"
+            linkedIn:
+              type: string
+              example: "inkprog.ocm"
+            dateOfBirth:
+              type: string
+              format: date
+              example: "2027-01-01"
+        addressDetails:
+          type: object
+          properties:
+            address:
+              type: string
+              example: "gachibowli"
+            state:
+              type: string
+              example: "telangana"
+            city:
+              type: string
+              example: "hyderabad"
+            pincode:
+              type: string
+              example: "500402"
+            district:
+              type: string
+              example: "hyderabad"
+            country:
+              type: string
+              example: "indiaa"
+        educationDetails:
+          type: object
+          properties:
+            highestEducation:
+              type: string
+              example: "m.tech"
+            bachelorsDegree:
+              type: string
+              example: "B.tech"
+            degreePercentage:
+              type: number
+              format: float
+              example: 70.5
+            departmentBranch:
+              type: string
+              example: "ECE"
+            startYear:
+              type: integer
+              format: int32
+              example: 2015
+            endYear:
+              type: integer
+              format: int32
+              example: 2019
+        workExperienceDetails:
+          type: object
+          properties:
+            occupation:
+              type: string
+              example: "front end developer"
+            jobRole:
+              type: string
+              example: "development"
+            startDate:
+              type: string
+              format: date
+              example: "2026-01-01"
+            endDate:
+              type: string
+              format: date
+              example: "2026-01-01"   
+
+    RecruiterDetailsResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "Successfully fetched Recruiter personal details"
+        data:
+          type: object
+          properties:
+            profilePicUrl:
+              type: string
+              nullable: true
+            personalDetails:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: "24"
+                userUid:
+                  type: string
+                  format: uuid
+                  example: "d1078b8a-d749-4f65-b9ab-d2f46f544970"
+                firstName:
+                  type: string
+                  example: "babu"
+                lastName:
+                  type: string
+                  example: "banoth"
+                userName:
+                  type: string
+                  example: "babu banoth"
+                phone:
+                  type: string
+                  example: "9177849394"
+                profilePicFileId:
+                  type: string
+                  nullable: true
+                userPersonalDetailsId:
+                  type: string
+                  example: "49"
+                userPersonalDetailsUid:
+                  type: string
+                  format: uuid
+                  example: "899cb978-1178-4d5e-8a5f-87c3c7c7b0f7"
+                website:
+                  type: string
+                  example: "inkprog.com"
+                linkedIn:
+                  type: string
+                  example: "inkprog.ocm22"
+                dateOfBirth:
+                  type: string
+                  format: date-time
+                  example: "2027-01-02T00:00:00.000Z"
+            addressDetails:
+              type: object
+              properties:
+                userAddressDetailsId:
+                  type: string
+                  example: "27"
+                uid:
+                  type: string
+                  format: uuid
+                  example: "633daa7a-9a8e-471e-a7b6-9133302c8da7"
+                userId:
+                  type: string
+                  example: "24"
+                address:
+                  type: string
+                  example: "madhapur"
+                state:
+                  type: string
+                  example: "telanagana"
+                city:
+                  type: string
+                  example: "hyderabad22"
+                pincode:
+                  type: string
+                  example: "500402"
+                district:
+                  type: string
+                  example: "hyderabad"
+                country:
+                  type: string
+                  example: "india"
+                isActive:
+                  type: boolean
+                  example: true
+                createdBy:
+                  type: string
+                  example: "24"
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: "2024-02-01T09:31:40.289Z"
+                updatedBy:
+                  type: string
+                  example: "24"
+                updatedAt:
+                  type: string
+                  format: date-time
+                  example: "2024-02-07T11:37:27.286Z"
+            companyDetails:
+              type: object
+              properties:
+                userCompanyDetailsId:
+                  type: string
+                  example: "1"
+                uid:
+                  type: string
+                  format: uuid
+                  example: "2a35cea6-f813-4813-bf70-696bfc9522ef"
+                userId:
+                  type: string
+                  example: "24"
+                establishYear:
+                  type: integer
+                  example: 2015
+                numberOfDepartments:
+                  type: string
+                  example: "7"
+                annualIncome:
+                  type: number
+                  format: float
+                  example: 200000
+                numberOfEmployees:
+                  type: string
+                  example: "30"
+                companyName:
+                  type: string
+                  nullable: true
+                founderName:
+                  type: string
+                  example: "saikumar"
+                createdBy:
+                  type: string
+                  example: "24"
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: "2024-02-01T09:31:40.289Z"
+                updatedBy:
+                  type: string
+                  example: "24"
+                updatedAt:
+                  type: string
+                  format: date-time
+                  example: "2024-02-07T11:37:27.286Z"  
+
+    MentorProfileResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "Successfully fetched mentor profile details"
+        data:
+          type: object
+          properties:
+            profilePicUrl:
+              type: string
+              nullable: true
+            personalDetails:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  example: "27"
+                userUid:
+                  type: string
+                  format: uuid
+                  example: "5806e499-a17a-43e9-818f-39056ed9d636"
+                firstName:
+                  type: string
+                  example: "babu"
+                lastName:
+                  type: string
+                  example: "naik"
+                userName:
+                  type: string
+                  example: "babu naik"
+                phone:
+                  type: string
+                  example: "9177849374"
+                profilePicFileId:
+                  type: string
+                  nullable: true
+                userPersonalDetailsId:
+                  type: string
+                  example: "36"
+                userPersonalDetailsUid:
+                  type: string
+                  format: uuid
+                  example: "5c9d1fe9-cb3c-4353-b44d-63f37566cb87"
+                website:
+                  type: string
+                  example: "aa"
+                linkedIn:
+                  type: string
+                  example: "aa"
+                dateOfBirth:
+                  type: string
+                  format: date-time
+                  example: "2025-12-31T18:30:00.000Z"
+            addressDetails:
+              type: object
+              properties:
+                userAddressDetailsId:
+                  type: string
+                  example: "12"
+                uid:
+                  type: string
+                  format: uuid
+                  example: "5c9d1fe9-cb3c-4353-b44d-63f37566cb87"
+                userId:
+                  type: string
+                  example: "27"
+                address:
+                  type: string
+                  example: "srikakulam"
+                state:
+                  type: string
+                  example: "Andhra Pradesh"
+                city:
+                  type: string
+                  example: "srikakulam"
+                pincode:
+                  type: string
+                  example: "532423"
+                district:
+                  type: string
+                  example: "srikakulam"
+                country:
+                  type: string
+                  example: "India"
+                isActive:
+                  type: boolean
+                  example: true
+                createdBy:
+                  type: string
+                  example: "27"
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: "2024-01-31T04:09:13.847Z"
+                updatedBy:
+                  type: string
+                  nullable: true
+                updatedAt:
+                  type: string
+                  nullable: true
+            educationDetails:
+              type: object
+              properties:
+                userEducationDetailsId:
+                  type: string
+                  example: "8"
+                uid:
+                  type: string
+                  format: uuid
+                  example: "5c9d1fe9-cb3c-4353-b44d-63f37566cb87"
+                userId:
+                  type: string
+                  example: "27"
+                highestEducation:
+                  type: string
+                  example: "B.tech"
+                departmentBranch:
+                  type: string
+                  example: "B.tech"
+                bachelorsDegree:
+                  type: string
+                  example: "70.5"
+                startYear:
+                  type: integer
+                  example: 2012
+                endYear:
+                  type: integer
+                  example: 2015
+                degreePercentage:
+                  type: number
+                  format: float
+                  example: 70.5
+                createdBy:
+                  type: string
+                  example: "27"
+                createdAt:
+                  type: string
+                  format: date-time
+                  example: "2024-01-31T04:09:13.847Z"
+                updatedBy:
+                  type: string
+                  nullable: true
+                updatedAt:
+                  type: string
+                  nullable: true
+            workExperienceDetails:
+              type: object
+              properties:
+                occupation:
+                  type: string
+                  example: "front end developer"
+                jobRole:
+                  type: string
+                  example: "development"
+                startDate:
+                  type: string
+                  format: date
+                  example: "2026-01-01"
+                endDate:
+                  type: string
+                  format: date
+                  example: "2026-01-01"
+
+    CollegeProfileDTO:
+      type: object
+      properties:
+        basicDetails:
+          type: object
+          properties:
+            website:
+              type: string
+              example: "www.raghu college.com"
+            linkedIn:
+              type: string
+              example: "http://linked.com/raghu/"
+        addressDetails:
+          type: object
+          properties:
+            address:
+              type: string
+              example: "vishakapatnam"
+            city:
+              type: string
+              example: "vishakapatnam"
+            district:
+              type: string
+              example: "vishakapatnam"
+            state:
+              type: string
+              example: "andrapradesh"
+            pincode:
+              type: string
+              example: "258522"
+            country:
+              type: string
+              example: "india(bharath)"
+        collegeDetails:
+          type: object
+          properties:
+            instituteName:
+              type: string
+              example: "raghu"
+            founderName:
+              type: string
+              example: "raghu"
+            accreditation:
+              type: string
+              example: "147"
+            deemed:
+              type: string
+              example: "127845"
+            numberOfStudents:
+              type: integer
+              example: 120
+            numberOfDepartments:
+              type: integer
+              example: 10
+            startYear:
+              type: integer
+              example: 2011
+
+    CollegeProfileResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: "Successfully fetched mentor profile details"
+        data:
+          type: object
+          properties:
+            profilePicUrl:
+              type: string
+              nullable: true
+            basicDetails:
+              type: object
+              properties:
+                website:
+                  type: string
+                  example: "www.raghu college.com"
+                linkedIn:
+                  type: string
+                  example: "http://linked.com/raghu/"
+            addressDetails:
+              type: object
+              properties:
+                address:
+                  type: string
+                  example: "vishakapatnam"
+                city:
+                  type: string
+                  example: "vishakapatnam"
+                district:
+                  type: string
+                  example: "vishakapatnam"
+                state:
+                  type: string
+                  example: "andrapradesh"
+                pincode:
+                  type: string
+                  example: "258522"
+                country:
+                  type: string
+                  example: "india(bharath)"
+            collegeDetails:
+              type: object
+              properties:
+                instituteName:
+                  type: string
+                  example: "raghu"
+                founderName:
+                  type: string
+                  example: "raghu"
+                accreditation:
+                  type: string
+                  example: "147"
+                deemed:
+                  type: string
+                  example: "127845"
+                numberOfStudents:
+                  type: integer
+                  example: 120
+                numberOfDepartments:
+                  type: integer
+                  example: 10
+                startYear:
+                  type: integer
+                  example: 2011
